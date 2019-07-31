@@ -1,0 +1,22 @@
+{
+  "name": "sos1819-sep-migp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+     "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gti-sos/SOS1819-sep-MIGP.git"
+  },
+  "author": "ivan.galvez.perez@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gti-sos/SOS1819-sep-MIGP/issues"
+  },
+  "homepage": "https://github.com/gti-sos/SOS1819-sep-MIGP#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
