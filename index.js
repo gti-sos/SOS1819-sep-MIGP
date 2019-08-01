@@ -1,4 +1,4 @@
-/*eslint-disable eqeqeq */
+/*eslint-disable eqeqeq, no-else-return*/
 var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
@@ -56,6 +56,7 @@ var unemploymentRates =  [{
 
 app.get("/unemploymentRates", (req,res)=>{
     res.send(unemploymentRates);
+    res.sendStatus(200);
 });
 
 
@@ -68,6 +69,10 @@ app.post("/unemploymentRates", (req,res)=>{
     unemploymentRates.push(newRate);
     
     res.sendStatus(201);
+});
+
+app.post("unemploymentRates/:country/:year", (req,res) => {
+   res.sendStatus(409); 
 });
 
 
@@ -83,16 +88,18 @@ app.delete("/unemploymentRates", (req,res)=>{
 
 // GET /unemploymentRates/Spain
 
-app.get("/unemploymentRates/:country", (req,res)=>{
+app.get("/unemploymentRates/:country/:year", (req,res)=>{
 
     var country = req.params.country;
+    var year = req.params.year;
 
     var filteredRates = unemploymentRates.filter((c) =>{
-       return c.country == country; 
-    })
+       return c.country == country && c.year == year; 
+    });
     
     if (filteredRates.length >= 1){
         res.send(filteredRates);
+        res.senStatus(200)
     }else{
         res.sendStatus(404);
     }
@@ -117,7 +124,6 @@ app.put("/unemploymentRates/:country/:year", (req,res)=>{
         }else{
             return c;            
         }
- 
     });
     
     if (found == false){
@@ -127,6 +133,11 @@ app.put("/unemploymentRates/:country/:year", (req,res)=>{
         res.sendStatus(200);
     }
 
+});
+
+//PUT /unemploymentRates/                genera conflicto
+app.put("/unemploymentRates/", (req,res) => {
+   res.send(409); 
 });
 
 
