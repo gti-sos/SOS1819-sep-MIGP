@@ -84,17 +84,37 @@ app.get(path, (req,res)=>{
 
 
 // POST /unemploymentRates/
-
-app.post("/unemploymentRates", (req,res)=>{
+path = BASE_PATH + "/unemploymentRates"
+app.post(path, (req,res)=>{
     
     var newRate = req.body;
+    var coincide = false;
+    var i = 0;
     
-    unemploymentRates.push(newRate);
-    
-    res.sendStatus(201);
+    if(newRate.country == null || newRate.year == null || newRate.rate == null || newRate.youthUnemployment == null || newRate.maleUnemployment == null || newRate.femaleUnemployment == null ) {
+        res.sendStatus(400);
+    } else {
+        unemploymentRates.find({}).toArray((error, unemploymentRatesArray) => {
+            for(i=0;i<unemploymentRatesArray.length;i++){
+                if(unemploymentRatesArray[i].country == newRate.country && unemploymentRatesArray[i].year == newRate.year && unemploymentRatesArray[i].rate == newRate.rate && unemploymentRatesArray[i].youthUnemployment == newRate.youthUnemployment && unemploymentRatesArray[i].maleUnemployment == newRate.maleUnemployment && unemploymentRatesArray[i].femaleUnemployment == newRate.femaleUnemployment ) {
+                    coincide = true;
+                }
+            }
+            
+            if(coincide == true) {
+                res.sendStatus(409);
+            } else {
+                unemploymentRates.insert(newRate);
+                res.sendStatus(201);
+            }
+        })
+    }
 });
 
-app.post("unemploymentRates/:country/:year", (req,res) => {
+
+//POST fallido
+path = BASE_PATH + "unemploymentRates/:country/:year";
+app.post(path, (req,res) => {
    res.sendStatus(409); 
 });
 
@@ -103,26 +123,32 @@ app.post("unemploymentRates/:country/:year", (req,res) => {
 
 app.delete("/unemploymentRates", (req,res)=>{
     
-    unemploymentRates =  [];
-
+    unemploymentRates.remove();
     res.sendStatus(200);
 });
 
 
 // GET /unemploymentRates/Spain
 
-app.get("/unemploymentRates/:country/:year", (req,res)=>{
+path = BASE_PATH + "/unemploymentRates/:country/:year";
+app.get(BASE_PATH, (req,res)=>{
 
     var country = req.params.country;
     var year = req.params.year;
-
-    var filteredRates = unemploymentRates.filter((c) =>{
-       return c.country == country && c.year == year; 
+    var rate = [];
+    
+    unemploymentRates.find({}).toArray((error, unemploymentRatesArray)=> {
+        for(i=0;i<unemploymentRatesArray.length;i++){
+            if(unemploymentRatesArray[i].country == country && unemploymentRatesArray[i].year == year) {
+                rate.push(unemploymentRatesArray[i]);
+            }
+        }
     });
     
-    if (filteredRates.length >= 1){
-        res.send(filteredRates);
-        res.senStatus(200)
+    
+    if (rate.length != 1){
+        res.send(delete rate[0]._id);
+        res.senStatus(200);
     }else{
         res.sendStatus(404);
     }
