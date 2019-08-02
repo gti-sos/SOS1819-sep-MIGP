@@ -3,12 +3,27 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
 
+const MongoClient = require("mongodb").MongoClient;
+const uri = "mongodb+srv://test:test@mangalper1-o8j8b.mongodb.net/mangalper1?retryWrites=true";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+
 var port = process.env.PORT || 8080;
+
+var unemploymentRates;
+
+client.connect(err => {
+    unemploymentRates =  client.db("mangalper").collection("unemploymentRates");
+    console.log("Mangalper1 DB connected!");
+    app.listen(port, () => {
+        console.log("Server ready on port " +port);
+    });
+    
+});
 
 app.use("/", express.static(__dirname+"/public"));
 app.use(bodyParser.json());
 
-var unemploymentRates =  [{
+var dejarPorSi =  [{
     country: "Spain",
     year: "2018",
     rate: "14.4",
@@ -55,8 +70,11 @@ var unemploymentRates =  [{
 // GET /contacts/
 
 app.get("/unemploymentRates", (req,res)=>{
-    res.send(unemploymentRates);
-    res.sendStatus(200);
+    unemploymentRates.find({}).toArray((error, ratesArray)=>{
+        res.send(ratesArray);
+        res.sendStatus(200);
+    });
+    
 });
 
 
@@ -168,6 +186,5 @@ app.delete("/unemploymentRates/:country/:year", (req,res)=>{
 
 
 
-app.listen(port, () => {
-    console.log("Super server ready on port " + port);
-});
+
+
