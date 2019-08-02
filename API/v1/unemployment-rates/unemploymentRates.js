@@ -56,24 +56,23 @@ module.exports = function(app, BASE_PATH) {
     femaleUnemployment: "9.0"
     }];
     
-//GET /unemploymentRates/loadInitialData
-path = BASE_PATH + "/unemploymentRates/loadInitialData";
+//GET /unemployment-rates/loadInitialData
+path = BASE_PATH + "/unemployment-rates/loadInitialData";
 app.get(path, (req,res) => {
-    unemploymentRates.find({}).toArray((error, unemploymentRatesArray) => {
-        if(unemploymentRatesArray.length != 0) {
-            res.sendStatus(409);
-        } else {
-            unemploymentRates.remove();
-            newUnemploymentRates.filter((d) => {
+    if(unemploymentRates.length == 0) {
+        res.sendStatus(409);
+    } else {
+        unemploymentRates.remove();
+        newUnemploymentRates.filter((d) => {
                 unemploymentRates.insert(d);
-            });
-            res.sendStatus(201);
-        }
-    });
+        });
+        res.sendStatus(201);
+    }
+    
 });
 
-// GET /unemploymentRates/
-path = BASE_PATH + "/unemploymentRates";
+// GET /unemployment-rates/
+path = BASE_PATH + "/unemployment-rates";
 app.get(path, (req,res)=>{
     unemploymentRates.find({}).toArray((error, ratesArray)=>{
         res.send(ratesArray);
@@ -83,8 +82,8 @@ app.get(path, (req,res)=>{
 });
 
 
-// POST /unemploymentRates/
-path = BASE_PATH + "/unemploymentRates"
+// POST /unemployment-rates/
+path = BASE_PATH + "/unemployment-rates"
 app.post(path, (req,res)=>{
     
     var newRate = req.body;
@@ -113,29 +112,30 @@ app.post(path, (req,res)=>{
 
 
 //POST fallido
-path = BASE_PATH + "unemploymentRates/:country/:year";
+path = BASE_PATH + "unemployment-rates/:country/:year";
 app.post(path, (req,res) => {
    res.sendStatus(409); 
 });
 
 
-// DELETE /unemploymentRates/
+// DELETE /unemployment-rates/
 
-app.delete("/unemploymentRates", (req,res)=>{
+app.delete("/unemployment-rates", (req,res)=>{
     
     unemploymentRates.remove();
     res.sendStatus(200);
 });
 
 
-// GET /unemploymentRates/Spain
+// GET /unemployment-rates/Spain/2018
 
-path = BASE_PATH + "/unemploymentRates/:country/:year";
+path = BASE_PATH + "/unemployment-rates/:country/:year";
 app.get(BASE_PATH, (req,res)=>{
 
     var country = req.params.country;
     var year = req.params.year;
     var rate = [];
+    var i = 0;
     
     unemploymentRates.find({}).toArray((error, unemploymentRatesArray)=> {
         for(i=0;i<unemploymentRatesArray.length;i++){
@@ -146,7 +146,7 @@ app.get(BASE_PATH, (req,res)=>{
     });
     
     
-    if (rate.length != 1){
+    if (rate.length == 1){
         res.send(delete rate[0]._id);
         res.senStatus(200);
     }else{
@@ -156,43 +156,51 @@ app.get(BASE_PATH, (req,res)=>{
 });
  
 
-// PUT /unemploymentRates/Spain/2018
+// PUT /unemployment-rates/Spain/2018
 
-app.put("/unemploymentRates/:country/:year", (req,res)=>{
+app.put("/unemployment-rates/:country/:year", (req,res)=>{
 
     var country = req.params.country;
     var year = req.params.year;
     var updatedRate = req.body;
     var found = false;
+    var i = 0;
 
-    var updatedRates = unemploymentRates.map((c) =>{
+    var updatedRates = [];
     
-        if(c.country == country && c.year == year){
-            found = true;
-            return updatedRate;
-        }else{
-            return c;            
-        }
+    unemploymentRates.filter({}).toArray((error, unemploymentRatesArray) => {
+       for(i=0;unemploymentRatesArray.length;i++){
+           if(unemploymentRatesArray[i].country == country && unemploymentRatesArray.year == year) {
+               found == true;
+               updatedRates.push(updatedRate);
+           } else {
+               updatedRates.push(unemploymentRatesArray[i]);
+           }
+       } 
     });
     
-    if (found == false){
-        res.sendStatus(404);
-    }else{
-        unemploymentRates = updatedRates;
+    if(found == true) {
         res.sendStatus(200);
+        unemploymentRates.remove();
+        updatedRates.filter((d) => {
+            unemploymentRates.insert(d);
+        });
+    } else {
+        res.sendStatus(404);
     }
 
 });
 
-//PUT /unemploymentRates/                genera conflicto
-app.put("/unemploymentRates/", (req,res) => {
+//PUT /unemployment-rates/                genera conflicto
+path = BASE_PATH + "/unemployment-rates/";
+app.put(path, (req,res) => {
    res.send(409); 
 });
 
 
-// DELETE /unemploymentRates/Spain/2018
-
-app.delete("/unemploymentRates/:country/:year", (req,res)=>{
+// DELETE /unemployment-rates/Spain/2018
+path = BASE_PATH + "/unemployment-rates/:country/:year";
+app.delete(path, (req,res)=>{
 
     var country = req.params.country;
     var year = req.params.year;
