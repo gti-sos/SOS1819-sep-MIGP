@@ -18,6 +18,8 @@ app.use(bodyParser.json());
 
 //v1
 API.unemploymentRates(app, BASE_PATH);
+
+
 client.connect(err => {
     console.log("Mangalper1 DB connected!");
     app.listen(port, () => {

@@ -73,8 +73,8 @@ app.get(path, (req,res) => {
 });
 
 // GET /unemploymentRates/
-
-app.get("/unemploymentRates", (req,res)=>{
+path = BASE_PATH + "/unemploymentRates";
+app.get(path, (req,res)=>{
     unemploymentRates.find({}).toArray((error, ratesArray)=>{
         res.send(ratesArray);
         res.sendStatus(200);
