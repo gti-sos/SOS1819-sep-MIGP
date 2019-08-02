@@ -147,7 +147,8 @@ app.get(BASE_PATH, (req,res)=>{
     
     
     if (rate.length == 1){
-        res.send(delete rate[0]._id);
+        delete rate[0]._id;
+        res.send(rate[0]);
         res.senStatus(200);
     }else{
         res.sendStatus(404);
