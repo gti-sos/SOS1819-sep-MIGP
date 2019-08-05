@@ -61,13 +61,13 @@ module.exports = function(app, BASE_PATH){
     
     //API RES 
     
-    /*
+    
     // GET /unemployment-rates/docs/
     path = BASE_PATH + "/unemployment-rates/docs";
     app.get(path, (req,res)=>{
-        res.redirect("https://documenter.getpostman.com/view/6914720/S17tRTs7");
+        res.redirect("");
     });
-    */
+    
     
     //LOAD INITIAL DATA de GET /gas-increases
     path = BASE_PATH + "/unemployment-rates/loadInitialData";
