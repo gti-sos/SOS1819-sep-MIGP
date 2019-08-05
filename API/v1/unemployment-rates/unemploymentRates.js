@@ -114,10 +114,9 @@ module.exports = function(app, BASE_PATH){
             res.sendStatus(404);
         
         }else{  
-            res.send(updatedRates.map((d)=>{
-                delete d._id;
-                return d;
-            }));
+           
+            delete updatedRates[0]._id;
+            res.send(updatedRates[0]);
         }
         
         }); 
