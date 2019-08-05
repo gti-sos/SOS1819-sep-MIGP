@@ -94,7 +94,7 @@ module.exports = function(app, BASE_PATH){
         });
     });
     
-    // GET /gas-increases/2017
+    // GET /unemployment-rates/Spain/2018
     path = BASE_PATH + "/unemployment-rates/:country/:year";
     app.get(path, (req, res) => {
         var country = req.params.country;
@@ -168,34 +168,34 @@ module.exports = function(app, BASE_PATH){
     
     
     // PUT /unemployment-rates/Spain/2018
-    path = BASE_PATH + "/gas-increases/:year/:province";
+    path = BASE_PATH + "/unemployment-rates/:country/:year";
     app.put(path, (req, res) => {
         var year = req.params.year;
-        var province = req.params.province;
+        var country = req.params.country;
         var updatedData = req.body;
         var found = false;
         var coincide = true;
         var i = 0;
-        var updatedgasIncreases = [];
+        var updatedRates = [];
         var aut = true;
         
-        gasIncreases.find({}).toArray((error,gasIncreasesArray)=>{
-                for(i=0;i<gasIncreasesArray.length;i++)
-                    if (gasIncreasesArray[i].year==year && gasIncreasesArray[i].province==province){
-                        if (gasIncreasesArray[i].year==updatedData.year && gasIncreasesArray[i].province==updatedData.province){
+        unemploymentRates.find({}).toArray((error,unemploymentRatesArray)=>{
+                for(i=0;i<unemploymentRatesArray.length;i++)
+                    if (unemploymentRatesArray[i].year==year && unemploymentRatesArray[i].country==country){
+                        if (unemploymentRatesArray[i].year==updatedData.year && unemploymentRatesArray[i].country==updatedData.country){
                             if(updatedData._id != null) {
-                                if(gasIncreasesArray[i]._id != updatedData._id)
+                                if(unemploymentRatesArray[i]._id != updatedData._id)
                                     aut = false;
                                     found = true;
                             } else {
                             found = true;
-                            updatedgasIncreases.push(updatedData);
+                            updatedRates.push(updatedData);
                             }    
                         }else{
                             coincide = false;
                         }
                     } else {
-                        updatedgasIncreases.push(gasIncreasesArray[i]);
+                        updatedRates.push(unemploymentRatesArray[i]);
                     }
             
          if (coincide==false){
@@ -205,9 +205,9 @@ module.exports = function(app, BASE_PATH){
         } else if (aut == false){
             res.sendStatus(401);
         }else{
-            gasIncreases.remove();
-            updatedgasIncreases.filter((d) =>{
-                    gasIncreases.insert(d);
+            unemploymentRates.remove();
+            updatedRates.filter((d) =>{
+                    unemploymentRates.insert(d);
                 });
                 res.sendStatus(200);
         }
