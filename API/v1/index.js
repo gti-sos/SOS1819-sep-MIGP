@@ -4,4 +4,4 @@ module.exports = {
     unemploymentRates : function(app, BASE_PATH){
         unemploymentRates(app, BASE_PATH);
     }
-};
+}
