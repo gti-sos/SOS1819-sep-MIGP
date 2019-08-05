@@ -100,23 +100,25 @@ module.exports = function(app, BASE_PATH){
         var country = req.params.country;
         var year = req.params.year;
         var i = 0;
-        var updatedRates = [];
+        var rate;
+        var encontrado = false;
         
         
         unemploymentRates.find({}).toArray((error,unemploymentRatesArray)=>{
             for(i=0;i<unemploymentRatesArray.length;i++)
                 if(unemploymentRatesArray[i].country==country && unemploymentRatesArray[i].year == year)
-                    updatedRates.push(unemploymentRatesArray[i]);
+                    rate = unemploymentRatesArray[i];
+                    encontrado = true;
                     
         
         
-        if (updatedRates.length==0){
+        if (encontrado==false){
             res.sendStatus(404);
         
         }else{  
            
-            delete updatedRates[0]._id;
-            res.send(updatedRates[0]);
+            delete rate._id;
+            res.send(rate);
         }
         
         }); 
