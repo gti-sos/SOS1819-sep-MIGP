@@ -89,7 +89,7 @@ module.exports = function(app, BASE_PATH){
     path = BASE_PATH + "/unemployment-rates"; 
     app.get(path, (req,res)=>{
         
-        unemploymentRates.find({}).toArray((err, unemploymentRatesArray)=>{
+        unemploymentRates.find({}).toArray((error, unemploymentRatesArray)=>{
             res.send(unemploymentRatesArray);
         });
     });
