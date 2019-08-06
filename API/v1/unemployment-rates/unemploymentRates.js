@@ -14,46 +14,46 @@ module.exports = function(app, BASE_PATH){
     var path = "";
     var newUnemploymentRates = [{
     country: "Spain",
-    year: "2018",
-    rate: "14.4",
-    youthUnemployment: "33.4",
-    maleUnemployment: "12.7",
-    femaleUnemployment: "16.2"
+    year: 2018,
+    rate: 14.4,
+    youthUnemployment: 33.4,
+    maleUnemployment: 12.7,
+    femaleUnemployment: 16.2
     }, {
     country: "Germany",
-    year: "2018",
-    rate: "3.3",
-    youthUnemployment: "15.6",
-    maleUnemployment: "3.6",
-    femaleUnemployment: "3.9"
+    year: 2018,
+    rate: 3.3,
+    youthUnemployment: 15.6,
+    maleUnemployment: 3.6,
+    femaleUnemployment: 3.9
     }, {
     country: "France",
-    year: "2018",
-    rate: "8.9",
-    youthUnemployment: "20.3",
-    maleUnemployment: "8.8",
-    femaleUnemployment: "9.0"
+    year: 2018,
+    rate: 8.9,
+    youthUnemployment: 20.3,
+    maleUnemployment: 8.8,
+    femaleUnemployment: 9.0
     }, {
     country: "Spain",
-    year: "2017",
-    rate: "16.5",
-    youthUnemployment: "37.1",
-    maleUnemployment: "15.0",
-    femaleUnemployment: "18.3"
+    year: 2017,
+    rate: 16.5,
+    youthUnemployment: 37.1,
+    maleUnemployment: 15.0,
+    femaleUnemployment: 18.3
     }, {
     country: "Germany",
-    year: "2017",
-    rate: "3.6",
-    youthUnemployment: "6.5",
-    maleUnemployment: "3.9",
-    femaleUnemployment: "3.1"
+    year: 2017,
+    rate: 3.6,
+    youthUnemployment: 6.5,
+    maleUnemployment: 3.9,
+    femaleUnemployment: 3.1
     }, {
     country: "France",
-    year: "2017",
-    rate: "9.1",
-    youthUnemployment: "21.6",
-    maleUnemployment: "9.1",
-    femaleUnemployment: "9.0"
+    year: 2017,
+    rate: 9.1,
+    youthUnemployment: 21.6,
+    maleUnemployment: 9.1,
+    femaleUnemployment: 9.0
     }];
 
 
@@ -88,10 +88,31 @@ module.exports = function(app, BASE_PATH){
     // GET /gas-increases
     path = BASE_PATH + "/unemployment-rates"; 
     app.get(path, (req,res)=>{
+        var limit = parseInt(req.query.limit);
+        var offset = parseInt(req.query.offset);
         
-        unemploymentRates.find({}).toArray((err, unemploymentRatesArray)=>{
-            res.send(unemploymentRatesArray);
+        var from = parseInt(req.query.from);
+        var to = parseInt(req.query.to);
+        
+        if(from && to) {
+            unemploymentRates.find({ year: {$gte: from, $lte: to}}).skip(offset).limit(limit).toArray((err, unemploymentRatesArray)=>{
+            res.send(unemploymentRatesArray.map((p)=>{
+                delete p._id;
+                return p;
+            }));
         });
+        } else {
+            unemploymentRates.find({}).skip(offset).limit(limit).toArray((err, unemploymentRatesArray)=>{
+            res.send(unemploymentRatesArray.map((p)=>{
+                delete p._id;
+                return p;
+            }));
+        });
+        }
+        
+        
+        
+        
     });
     
     // GET /unemployment-rates/Spain/2018
@@ -100,19 +121,17 @@ module.exports = function(app, BASE_PATH){
         var country = req.params.country;
         var year = req.params.year;
         var i = 0;
-        var rate;
-        var encontrado = false;
+        var rate = null;
         
         
         unemploymentRates.find({}).toArray((error,unemploymentRatesArray)=>{
             for(i=0;i<unemploymentRatesArray.length;i++)
                 if(unemploymentRatesArray[i].country==country && unemploymentRatesArray[i].year == year)
                     rate = unemploymentRatesArray[i];
-                    encontrado = true;
                     
         
         
-        if (encontrado==false){
+        if (rate == null){
             res.sendStatus(404);
         
         }else{  
