@@ -65,7 +65,7 @@ module.exports = function(app, BASE_PATH){
     // GET /unemployment-rates/docs/
     path = BASE_PATH + "/unemployment-rates/docs";
     app.get(path, (req,res)=>{
-        res.redirect("");
+        res.redirect("https://documenter.getpostman.com/view/6914720/SVYqQfLL");
     });
     
     
@@ -122,7 +122,7 @@ module.exports = function(app, BASE_PATH){
         var year = req.params.year;
         var i = 0;
         var rate = null;
-        
+
         
         unemploymentRates.find({}).toArray((error,unemploymentRatesArray)=>{
             for(i=0;i<unemploymentRatesArray.length;i++)
@@ -133,14 +133,13 @@ module.exports = function(app, BASE_PATH){
         
         if (rate == null){
             res.sendStatus(404);
-        
-        }else{  
-           
-            delete rate._id;
-            res.send(rate);
-        }
-        
-        }); 
+            }else{  
+               
+                delete rate._id;
+                res.send(rate);
+            }
+            
+            }); 
     });
        
     
