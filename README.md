@@ -7,5 +7,5 @@
 - **Repository**: [gti-sos/SOS1819-sep-MIGP](https://github.com/gti-sos/SOS1819-sep-MIGP)
 - **URL**: http://sos1819-13.herokuapp.com/
 -  **APIs**:
-    - [https://sos1819-sep-migp.herokuapp.com/api/v1/unemploymentRates](https://sos1819-sep-migp.herokuapp.com/api/v1/unemploymentRates) (developed by [Manuel Iván Gálvez Pérez](https://github.com/mangalper1))
+    - [https://sos1819-sep-migp.herokuapp.com/api/v1/unemployment-rates/docs](https://sos1819-sep-migp.herokuapp.com/api/v1/unemployment-rates) (developed by [Manuel Iván Gálvez Pérez](https://github.com/mangalper1))
     

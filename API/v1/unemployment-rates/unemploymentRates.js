@@ -96,18 +96,31 @@ module.exports = function(app, BASE_PATH){
         
         if(from && to) {
             unemploymentRates.find({ year: {$gte: from, $lte: to}}).skip(offset).limit(limit).toArray((err, unemploymentRatesArray)=>{
-            res.send(unemploymentRatesArray.map((p)=>{
-                delete p._id;
-                return p;
-            }));
+            if(unemploymentRatesArray.length == 1) {
+                var rate = unemploymentRatesArray[0];
+                delete rate._id;
+                res.send(rate);
+            } else {
+                res.send(unemploymentRatesArray.map((p)=>{
+                    delete p._id;
+                    return p;
+                }));
+            }
+            
         });
         } else {
             unemploymentRates.find({}).skip(offset).limit(limit).toArray((err, unemploymentRatesArray)=>{
-            res.send(unemploymentRatesArray.map((p)=>{
-                delete p._id;
-                return p;
-            }));
-        });
+                if(unemploymentRatesArray.length == 1) {
+                    var rate = unemploymentRatesArray[0];
+                    delete rate._id;
+                    res.send(rate);
+                } else {
+                    res.send(unemploymentRatesArray.map((p)=>{
+                        delete p._id;
+                        return p;
+                    }));
+                }
+            });
         }
         
         
