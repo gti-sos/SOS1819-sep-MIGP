@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 API.unemploymentRates(app, BASE_PATH);
 
 app.use("/", express.static(path.join(__dirname,"/public")));
+app.use("/ui/v1/unemployment-rates", express.static(path.join(__dirname,"/public/unemployment-rates")));
 
 var port = process.env.PORT || 3000;
 
