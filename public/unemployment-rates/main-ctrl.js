@@ -58,7 +58,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         });
     };
     
-    $scope.updaterate = function () {
+    /*$scope.updaterate = function () {
        var newRate = $scope.newRate;
        console.log("editando el recurso: "+ newRate.country +" , "+newRate.year);
        
@@ -82,6 +82,38 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
               
        });
     };
+    
+    --------------------
+    <tr>
+            
+                <td>
+                    <input type="text" class="form-control" placeholder=" country" value=" country" ng-model="newRate.country" />
+                </td>
+                
+                <td>
+                    <input type="text" class="form-control" placeholder=" year" value=" year" ng-model="newRate.year" />
+                </td>
+
+                <td>
+                    <input type="text" class="form-control" placeholder=" rate" value=" rate" ng-model="newRate.rate" />
+                </td>
+
+                <td>
+                    <input type="text" class="form-control" placeholder=" youthUnemployment" value=" youthUnemployment" ng-model="newRate.youthUnemployment" />
+                </td>
+
+                <td>
+                    <input type="text" class="form-control" placeholder=" maleUnemployment" value=" maleUnemployment" ng-model="newRate.maleUnemployment" />
+                </td>
+
+                <td>
+                    <input type="text" class="form-control" placeholder=" femaleUnemployment" value=" femaleUnemployment" ng-model="newRate.femaleUnemployment" />
+                </td>
+                <td>
+                    <button class="btn btn-primary" ng-click="updaterate()">Editar recurso</button>
+                </td>
+                
+    */
    
     $scope.deleterate = function(country, year) {
 
@@ -126,23 +158,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
 
     };
 
-    $scope.buscarRecurso = function(year) {
-        console.log("Buscando ... ");
-        $http.get($scope.url+"/"+year).then(function(response) {
-            $scope.unemploymentRates = response.data;
-            console.log("Búsqueda realizada" + JSON.stringify(response.data, null, 2));
-            $scope.unemploymentRates = response.data;
-            $scope.mensaje = "Búsqueda realizada con éxito";
-            $scope.stateCode = response.status + ", " + response.statusText;
-        }, function(error) {
-            refresh();
-            $scope.stateCode = error.status + ", " + error.statusText;
-            $scope.mensaje = "No existen recursos con el año: "+year;
-        });
-        
-    };
-    
-    
+   
 
     refresh();
 }]);

@@ -32,23 +32,11 @@
                 <input type="text" placeholder="Hasta" class="form-control" ng-model="to" />
             </div>
             <div class="col-sm">
-                <button class="btn btn-primary" ng-click="buscarDesdeHasta(from, desde)">Buscar</button>
+                <button class="btn btn-primary" ng-click="buscarDesdeHasta(from, to)">Buscar</button>
             </div>
         </div>
     </div>
-    <div class="row" style="border: 2px solid black;">
-        <div class="col-sm">
-            <h6>Búsqueda por año:</h6>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                <input type="text" placeholder="Año" class="form-control" ng-model="year" />
-            </div>
-            <div class="col-sm">
-                <button class="btn btn-primary" ng-click="buscarRecurso(year)">Buscar</button>
-            </div>
-        </div>
-    </div>
+    
     <table class="table">
         <thead>
             <tr>
@@ -76,7 +64,7 @@
             <tr ng-repeat="unemploymentRate in unemploymentRates">
                 <td>{{ unemploymentRate.country }}</td>
                 <td>{{ unemploymentRate.year }}</td>
-                <td>{{ unemploymentRate.tase }}</td>
+                <td>{{ unemploymentRate.rate }}</td>
                 <td>{{ unemploymentRate.youthUnemployment }}</td>
                 <td>{{ unemploymentRate.maleUnemployment }}</td>
                 <td>{{ unemploymentRate.femaleUnemployment }}</td>
@@ -112,33 +100,8 @@
                     <button class="btn btn-primary" ng-click="addNewRate()">Añadir nuevo</button>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <input type="text" class="form-control" placeholder=" country" value=" country" ng-model="newRate.country" />
-                </td>
-                
-                <td>
-                    <input type="text" class="form-control" placeholder=" year" value=" year" ng-model="newRate.year" />
-                </td>
-
-                <td>
-                    <input type="text" class="form-control" placeholder=" rate" value=" rate" ng-model="newRate.rate" />
-                </td>
-
-                <td>
-                    <input type="text" class="form-control" placeholder=" youthUnemployment" value=" youthUnemployment" ng-model="newRate.youthUnemployment" />
-                </td>
-
-                <td>
-                    <input type="text" class="form-control" placeholder=" maleUnemployment" value=" maleUnemployment" ng-model="newRate.maleUnemployment" />
-                </td>
-
-                <td>
-                    <input type="text" class="form-control" placeholder=" femaleUnemployment" value=" femaleUnemployment" ng-model="newRate.femaleUnemployment" />
-                </td>
-                <td>
-                    <button class="btn btn-primary" ng-click="updaterate()">Editar recurso</button>
-                </td>
+           
+            
         </tbody>
     </table>
     <div class="row">
