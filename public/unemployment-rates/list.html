@@ -1,0 +1,110 @@
+<center>
+        <h2>Tasas de desempleo
+        </h2>
+    </center>
+    <div class="row" style="border: 2px solid black;">
+        <div class="col-sm">
+            <h6>Búsqueda por fechas:</h6>
+        </div>
+        <div class="row">
+
+            <div class="col-sm">
+                <input type="text" placeholder="Desde" class="form-control" ng-model="from" />
+            </div>
+            <div class="col-sm">
+                <input type="text" placeholder="Hasta" class="form-control" ng-model="to" />
+            </div>
+            <div class="col-sm">
+                <button class="btn btn-primary" ng-click="buscarDesdeHasta(from, to)">Buscar</button>
+            </div>
+        </div>
+    </div>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    País
+                </th>
+                <th>
+                    Año
+                </th>
+                <th>
+                    Tasa de paro
+                </th>
+                <th>
+                    Desempleo juvenil
+                </th>
+                <th>
+                    Desempleo masculino
+                </th>
+                <th>
+                    Desempleo femenino
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="unemploymentRate in unemploymentRates">
+                <td>{{ unemploymentRate.country }}</td>
+                <td>{{ unemploymentRate.year }}</td>
+                <td>{{ unemploymentRate.rate }}</td>
+                <td>{{ unemploymentRate.youthUnemployment }}</td>
+                <td>{{ unemploymentRate.maleUnemployment }}</td>
+                <td>{{ unemploymentRate.femaleUnemployment }}</td>
+                <td>
+                    <button class="btn btn-warning" ng-click="deleterate(unemploymentRate.year, unemploymentRate.province)">Borrar</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" class="form-control" placeholder="new country" value="new country" ng-model="newRate.country" />
+                </td>
+                
+                <td>
+                    <input type="text" class="form-control" placeholder="new year" value="new year" ng-model="newRate.year" />
+                </td>
+
+                <td>
+                    <input type="text" class="form-control" placeholder="new rate" value="new rate" ng-model="newRate.rate" />
+                </td>
+
+                <td>
+                    <input type="text" class="form-control" placeholder="new youthUnemployment" value="new youthUnemployment" ng-model="newRate.youthUnemployment" />
+                </td>
+
+                <td>
+                    <input type="text" class="form-control" placeholder="new maleUnemployment" value="new maleUnemployment" ng-model="newRate.maleUnemployment" />
+                </td>
+
+                <td>
+                    <input type="text" class="form-control" placeholder="new femaleUnemployment" value="new femaleUnemployment" ng-model="newRate.femaleUnemployment" />
+                </td>
+                <td>
+                    <button class="btn btn-primary" ng-click="addNewRate()">Añadir nuevo</button>
+                </td>
+            </tr>
+           
+            
+        </tbody>
+    </table>
+    <div class="row">
+
+        <div class="col-sm">
+            <button class="btn btn-primary" ng-click="cargaInicial()">Cargar Datos</button>
+        </div>
+        <div class="col-sm">
+            <button class="btn btn-danger" ng-click="deleteAllData()">Borrar Todo</button>
+        </div>
+    </div>
+    <div class="col-xs-5" style="width: 30%">
+            <label class="input-lg" for="mensaje">Mensaje</label>
+            <textarea class="form-control" rows="1" ng-model="mensaje">
+                <p> Mensaje : {{ mensaje }}</p>
+            </textarea>
+    </div>
+    <div class="col-xs-5" style="width: 30%">
+            <label class="input-lg" for="stateCode">Código de estado</label>
+            <textarea class="form-control" rows="1" ng-model="stateCode"></textarea>
+    </div>
+
+  
