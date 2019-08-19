@@ -15,7 +15,7 @@ API.unemploymentRates(app, BASE_PATH);
 app.use("/", express.static(path.join(__dirname,"/public")));
 //app.use("/ui/v1/unemployment-rates", express.static(path.join(__dirname,"/public/unemployment-rates")));
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 
 const MongoClient = require("mongodb").MongoClient;
 const uri = "mongodb+srv://test:test@mangalper1-o8j8b.mongodb.net/mangalper1?retryWrites=true";
