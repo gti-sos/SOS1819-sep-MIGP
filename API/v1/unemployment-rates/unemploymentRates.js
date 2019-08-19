@@ -176,19 +176,20 @@ module.exports = function(app, BASE_PATH){
     app.post(path, (req, res) => {
     var newRate = {
         "country": req.body.country,
-        "year": parseInt(req.body.year),
-        "rate": parseInt(req.body.rate),
-        "youthUnemployment": parseInt(req.body.youthUnemployment),
-        "maleUnemployment": parseInt(req.body.maleUnemployment),
-        "femaleUnemployment": parseInt(req.body.femaleUnemployment)
+        "year": Number(req.body.year),
+        "rate": Number(req.body.rate),
+        "youthUnemployment": Number(req.body.youthUnemployment),
+        "maleUnemployment": Number(req.body.maleUnemployment),
+        "femaleUnemployment": Number(req.body.femaleUnemployment)
     }
     
+    var posted = req.body;
 
 
     var coincide = false;
     var i = 0;
     
-        if (newRate.country == null || newRate.year == null ||newRate.rate == null || newRate.youthUnemployment == null || newRate.maleUnemployment == null || newRate.femaleUnemployment == null 
+        if (posted.country == null || posted.year == null ||posted.rate == null || posted.youthUnemployment == null || posted.maleUnemployment == null || posted.femaleUnemployment == null 
             || req.body.country == "" || req.body.year == "" ||req.body.rate == "" || req.body.youthUnemployment == "" || req.body.maleUnemployment == "" || req.body.femaleUnemployment == "" ){
             res.sendStatus(400);
         }else{
@@ -232,8 +233,13 @@ module.exports = function(app, BASE_PATH){
         var country = req.params.country;
         var updatedData = req.body;
         
-        unemploymentRates.update({"country": country, "year": year}, updatedData);
-        res.sendStatus(200);
+        if(updatedData.year != year || updatedData.country != country)
+            res.sendStatus(400);
+        else
+            unemploymentRates.update({"country": country, "year": year}, updatedData);
+            res.sendStatus(200);
+        
+        
         
         
     });
