@@ -103,7 +103,6 @@ app.controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
 
             $scope.mensaje = "Datos borrados";
             $scope.stateCode = response.status + ", " + response.statusText;
-            refresh();
         }, function(error) {
             $scope.stateCode = error.status + ", " + error.statusText;
             $scope.mensaje = "La base de datos está vacía";
@@ -122,7 +121,10 @@ app.controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
             console.log("Búsqueda realizada " + JSON.stringify(response.data, null, 2));
             $scope.mensaje = "Búsqueda realizada de "+from+" a "+to;
             $scope.stateCode = response.status + ", " + response.statusText;
-        });
+        }), function(error) {
+            $scope.stateCode = error.status + ", " + error.statusText;
+            $scope.mensaje = "No se encuentran datos desde "+from+" a "+to;
+            };
 
     };
 
@@ -134,6 +136,7 @@ app.controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
             $scope.unemploymentRates = response.data;
             $scope.mensaje = "Búsqueda realizada con éxito";
             $scope.stateCode = response.status + ", " + response.statusText;
+            refresh();
         }, function(error) {
             refresh();
             $scope.stateCode = error.status + ", " + error.statusText;

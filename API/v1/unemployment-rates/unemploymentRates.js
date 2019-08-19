@@ -13,48 +13,53 @@ client.connect(err => {
 module.exports = function(app, BASE_PATH){
     var path = "";
     var newUnemploymentRates = [{
-    country: "Spain",
-    year: 2018,
-    rate: 14.4,
-    youthUnemployment: 33.4,
-    maleUnemployment: 12.7,
-    femaleUnemployment: 16.2
-    }, {
-    country: "Germany",
-    year: 2018,
-    rate: 3.3,
-    youthUnemployment: 15.6,
-    maleUnemployment: 3.6,
-    femaleUnemployment: 3.9
-    }, {
-    country: "France",
-    year: 2018,
-    rate: 8.9,
-    youthUnemployment: 20.3,
-    maleUnemployment: 8.8,
-    femaleUnemployment: 9.0
-    }, {
-    country: "Spain",
-    year: 2017,
-    rate: 16.5,
-    youthUnemployment: 37.1,
-    maleUnemployment: 15.0,
-    femaleUnemployment: 18.3
-    }, {
-    country: "Germany",
-    year: 2017,
-    rate: 3.6,
-    youthUnemployment: 6.5,
-    maleUnemployment: 3.9,
-    femaleUnemployment: 3.1
-    }, {
-    country: "France",
-    year: 2017,
-    rate: 9.1,
-    youthUnemployment: 21.6,
-    maleUnemployment: 9.1,
-    femaleUnemployment: 9.0
-    }];
+    "country": "Germany",
+    "year": 2018,
+    "rate": 3.3,
+    "youthUnemployment": 15.6,
+    "maleUnemployment": 3.6,
+    "femaleUnemployment": 3.9
+  },
+  {
+    "country": "Spain",
+    "year": 2018,
+    "rate": 14.4,
+    "youthUnemployment": 33.4,
+    "maleUnemployment": 12.7,
+    "femaleUnemployment": 16.2
+  },
+  {
+    "country": "Spain",
+    "year": 2017,
+    "rate": 16.5,
+    "youthUnemployment": 37.1,
+    "maleUnemployment": 15,
+    "femaleUnemployment": 18.3
+  },
+  {
+    "country": "France",
+    "year": 2018,
+    "rate": 8.9,
+    "youthUnemployment": 20.3,
+    "maleUnemployment": 8.8,
+    "femaleUnemployment": 9
+  },
+  {
+    "country": "Germany",
+    "year": 2017,
+    "rate": 3.6,
+    "youthUnemployment": 6.5,
+    "maleUnemployment": 3.9,
+    "femaleUnemployment": 3.1
+  },
+  {
+    "country": "France",
+    "year": 2017,
+    "rate": 9.1,
+    "youthUnemployment": 21.6,
+    "maleUnemployment": 9.1,
+    "femaleUnemployment": 9
+  }];
 
 
 
@@ -76,7 +81,6 @@ module.exports = function(app, BASE_PATH){
             if(unemploymentRatesArray.length!=0){
                 res.sendStatus(409);
             } else {
-                unemploymentRates.remove();
                 newUnemploymentRates.filter((d) =>{
                     unemploymentRates.insert(d);
                 });
@@ -98,30 +102,26 @@ module.exports = function(app, BASE_PATH){
         
         if(from && to) {
             unemploymentRates.find({ year: {$gte: from, $lte: to}}).skip(offset).limit(limit).toArray((err, unemploymentRatesArray)=>{
-            if(unemploymentRatesArray.length == 1) {
-                var rate = unemploymentRatesArray[0];
-                delete rate._id;
-                res.send(rate);
-            } else {
-                res.send(unemploymentRatesArray.map((p)=>{
-                    delete p._id;
-                    return p;
-                }));
-            }
-            
-        });
-        } else {
-            unemploymentRates.find({}).skip(offset).limit(limit).toArray((err, unemploymentRatesArray)=>{
-                if(unemploymentRatesArray.length == 1) {
-                    var rate = unemploymentRatesArray[0];
-                    delete rate._id;
-                    res.send(rate);
-                } else {
+                if(unemploymentRatesArray.length == 0)
+                    res.sendStatus(404);
+                else 
                     res.send(unemploymentRatesArray.map((p)=>{
                         delete p._id;
                         return p;
                     }));
-                }
+                    
+            
+        });
+        } else {
+            unemploymentRates.find({}).skip(offset).limit(limit).toArray((err, unemploymentRatesArray)=>{
+                if(unemploymentRatesArray.length == 0)
+                    res.sendStatus(404);
+                else 
+                    res.send(unemploymentRatesArray.map((p)=>{
+                        delete p._id;
+                        return p;
+                    }));
+                    
             });
         }
         
@@ -130,44 +130,66 @@ module.exports = function(app, BASE_PATH){
         
     });
     
-
+    // GET /unemployment-rates/Spain
+    path = BASE_PATH + "/unemployment-rates/:country";
+    app.get(path, (req, res) => {
+        var country = req.params.country;
+        unemploymentRates.find({"country": country}).toArray((err, unemploymentRatesArray) => {
+            res.send(unemploymentRatesArray.map((c) => {
+                return c;
+            }))
+        })
+    })
+    
     
     // GET /unemployment-rates/Spain/2018
     path = BASE_PATH + "/unemployment-rates/:country/:year";
     app.get(path, (req, res) => {
         var country = req.params.country;
-        var year = req.params.year;
+        var year = parseInt(req.params.year);
         var i = 0;
         var rate = null;
 
         
-        unemploymentRates.find({}).toArray((error,unemploymentRatesArray)=>{
-            for(i=0;i<unemploymentRatesArray.length;i++)
-                if(unemploymentRatesArray[i].country==country && unemploymentRatesArray[i].year == year)
-                    rate = unemploymentRatesArray[i];
+        unemploymentRates.find({"country": country, "year": year}).toArray((error,unemploymentRatesArray)=>{
+            
                     
         
         
-        if (rate == null){
-            res.sendStatus(404);
-            }else{  
-               
-                delete rate._id;
-                res.send(rate);
-            }
-            
-            }); 
+            if (unemploymentRatesArray.length == 0){
+                res.sendStatus(404);
+                }else{  
+                   
+                   
+                    res.send(unemploymentRatesArray.map((c)=>{
+                        delete c._id;
+                        return c;
+                    })[0]);
+                }
+                
+                }); 
     });
        
     
     // POST /unemployment-rates
     path = BASE_PATH + "/unemployment-rates";
     app.post(path, (req, res) => {
-    var newRate = req.body;
+    var newRate = {
+        "country": req.body.country,
+        "year": parseInt(req.body.year),
+        "rate": parseInt(req.body.rate),
+        "youthUnemployment": parseInt(req.body.youthUnemployment),
+        "maleUnemployment": parseInt(req.body.maleUnemployment),
+        "femaleUnemployment": parseInt(req.body.femaleUnemployment)
+    }
+    
+
+
     var coincide = false;
     var i = 0;
     
-        if (newRate.country == null || newRate.year == null ||newRate.rate == null ||newRate.youthUnemployment == null || newRate.maleUnemployment == null || newRate.femaleUnemployment == null ){
+        if (newRate.country == null || newRate.year == null ||newRate.rate == null || newRate.youthUnemployment == null || newRate.maleUnemployment == null || newRate.femaleUnemployment == null 
+            || req.body.country == "" || req.body.year == "" ||req.body.rate == "" || req.body.youthUnemployment == "" || req.body.maleUnemployment == "" || req.body.femaleUnemployment == "" ){
             res.sendStatus(400);
         }else{
             unemploymentRates.find({}).toArray((error,unemploymentRatesArray)=>{
@@ -183,7 +205,7 @@ module.exports = function(app, BASE_PATH){
                 res.sendStatus(201);
             } 
             });
-        }
+        } 
         });
         
     //POST a un recurso  
@@ -206,48 +228,14 @@ module.exports = function(app, BASE_PATH){
     // PUT /unemployment-rates/Spain/2018
     path = BASE_PATH + "/unemployment-rates/:country/:year";
     app.put(path, (req, res) => {
-        var year = req.params.year;
+        var year = parseInt(req.params.year);
         var country = req.params.country;
         var updatedData = req.body;
-        var found = false;
-        var coincide = true;
-        var i = 0;
-        var updatedRates = [];
-        var aut = true;
         
-        unemploymentRates.find({}).toArray((error,unemploymentRatesArray)=>{
-                for(i=0;i<unemploymentRatesArray.length;i++)
-                    if (unemploymentRatesArray[i].year==year && unemploymentRatesArray[i].country==country){
-                        if (unemploymentRatesArray[i].year==updatedData.year && unemploymentRatesArray[i].country==updatedData.country){
-                            if(updatedData._id != null) {
-                                if(unemploymentRatesArray[i]._id != updatedData._id)
-                                    aut = false;
-                                    found = true;
-                            } else {
-                            found = true;
-                            updatedRates.push(updatedData);
-                            }    
-                        }else{
-                            coincide = false;
-                        }
-                    } else {
-                        updatedRates.push(unemploymentRatesArray[i]);
-                    }
-            
-         if (coincide==false){
-            res.sendStatus(400);
-        }else if (found==false){
-            res.sendStatus(404);
-        } else if (aut == false){
-            res.sendStatus(401);
-        }else{
-            unemploymentRates.remove();
-            updatedRates.filter((d) =>{
-                    unemploymentRates.insert(d);
-                });
-                res.sendStatus(200);
-        }
-        });
+        unemploymentRates.update({"country": country, "year": year}, updatedData);
+        res.sendStatus(200);
+        
+        
     });
     
     path = BASE_PATH + "/unemployment-rates";
@@ -259,29 +247,21 @@ module.exports = function(app, BASE_PATH){
     // DELETE /unemployment-rates/Spain/2018
     path = BASE_PATH + "/unemployment-rates/:country/:year";
     app.delete(path, (req,res)=>{
-       var year = req.params.year;
         var country = req.params.country;
-        var found = false;
-        var updatedRates = [];
-        var i = 0;
+        var year = parseInt(req.params.year);       
+        var tam = unemploymentRates.length;
         
-        unemploymentRates.find({}).toArray((error,unemploymentRatesArray)=>{
-            for(i=0;i<unemploymentRatesArray.length;i++)
-                if (unemploymentRatesArray[i].year==year && unemploymentRatesArray[i].country==country)
-                    found = true;
-                    
-                else
-                    updatedRates.push(unemploymentRatesArray[i]);
-            
-            if (found==false)
+        unemploymentRates.find({"country": country, "year": year}).toArray((err, unemploymentRatesArray) => {
+            if(unemploymentRatesArray.length == 0)
                 res.sendStatus(404);
-            else
-                unemploymentRates.remove();
-                updatedRates.filter((d) =>{
-                    delete d._id;
-                    unemploymentRates.insert(d);
-                });
+            else 
+                unemploymentRates.remove({"country": country, "year": year});
                 res.sendStatus(200);
-        });
+        })
+        
+        
+        
+       
+        
     });
 }
