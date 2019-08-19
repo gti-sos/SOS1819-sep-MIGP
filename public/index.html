@@ -1,39 +1,26 @@
-
-<!DOCTYPE html>
-<html>
+<html ng-app="MiniPostmanApp">
 
 <head>
+    <title>
+        Unemployment Rates MiniPostman 
+    </title>
+    <link rel="stylesheet" href="/../bower_components/bootstrap/dist/css/bootstrap.min.css"></link>
 
+    <script src="/../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="/../bower_components/angular/angular.min.js"></script>
+
+    <script src="/../bower_components/angular-route/angular-route.min.js"></script>
+    
+    <script src="minipostman.js"></script>
+
+    <script src="list-ctrl.js"></script>
+    
+    <script src="edit-ctrl.js"></script>
 </head>
-     <meta charset="UTF-8">
-<body>
 
-    <h1>SOS1819-sep-MIGP</h1>
-
-    <h3>Team</h3>
-    <ul>
-        <li><h3> <a href="https://github.com/mangalper1">Manuel Iván Gálvez Pérez</a></h3></li>
-    </ul>
-
-    <h3>Project description: Compare unemployment rates in different countries. </h3>
-    <p></p>
-
-    <h3>Repository:</h3>
-    <a href="https://github.com/gti-sos/SOS1819-sep-MIGP">[gti-sos/SOS1819-sep-MIGP]</a>
-
-    <h3>URL:</h3>
-    <a href="http://sos1819-sep-migp.herokuapp.com/">http://sos1819-sep-migp.herokuapp.com/</a>
-
-    <h3>APIs:</h3>
-    <ul>
-        <li><a href="http://sos1819-sep-migp.herokuapp.com/api/v1/unemployment-rates/docs">[http://sos1819-sep-migp.herokuapp.com/api/v1/unemployment-rates/docs]</a><a href="https://datosmacro.expansion.com/paro"> Fuente </a> (developed by <a href="https://github.com/mangalper1">Manuel Iván Gálvez Pérez)</a></a></li>
-    </ul>
-      
-    
-    <h3>MiniPostman:</h3>
-    <ul>
-        <li><a href="https://sos1819-sep-migp.herokuapp.com/ui/v1/unemployment-rates"><h3>https://sos1819-13.herokuapp.com/ui/v1/unemployment-rates</a> (developed by <a href="https://github.com/mangalper1">Manuel Iván Gálvez Pérez)</a></h3></li>
-    </ul>
-    
+<body ng-view>
     
 </body>
+
+</html>

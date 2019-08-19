@@ -1,0 +1,73 @@
+<center>
+        <h2>Editar tasas de desempleo
+        </h2>
+    </center>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    País
+                </th>
+                <th>
+                    Año
+                </th>
+                <th>
+                    Tasa de paro
+                </th>
+                <th>
+                    Desempleo juvenil
+                </th>
+                <th>
+                    Desempleo masculino
+                </th>
+                <th>
+                    Desempleo femenino
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+                <td>{{ unemploymentRate.country }}</td>
+                <td>{{ unemploymentRate.year }}</td>
+                    
+                <td>
+                    <input 
+                        class=form-control
+                        ng-model=unemploymentRate.rate
+                    />
+                </td>
+                <td>
+                    <input 
+                        class=form-control
+                        ng-model=unemploymentRate.youthUnemployment
+                    />
+                </td>
+                <td>
+                    <input 
+                        class=form-control
+                        ng-model=unemploymentRate.maleUnemployment
+                    />
+                </td>
+                <td>
+                    <input 
+                        class=form-control
+                        ng-model=unemploymentRate.femaleUnemployment
+                    />
+                </td>
+                <td>
+                    <button class="btn btn-secondary" ng-click="updaterate(unemploymentRate.country, unemploymentRate.year">Actualizar</button>
+                </td>
+            </tr>
+            
+    <div class="col-xs-5" style="width: 30%">
+            <label class="input-lg" for="mensaje">Mensaje</label>
+            <textarea class="form-control" rows="1" ng-model="mensaje">
+                <p> Mensaje : {{ mensaje }}</p>
+            </textarea>
+    </div>
+    <div class="col-xs-5" style="width: 30%">
+            <label class="input-lg" for="stateCode">Código de estado</label>
+            <textarea class="form-control" rows="1" ng-model="stateCode"></textarea>
+    </div>
+
+  

@@ -45,14 +45,14 @@
         </thead>
         <tbody>
             <tr ng-repeat="unemploymentRate in unemploymentRates">
-                <td>{{ unemploymentRate.country }}</td>
+                <td><a href="#!/ui/v1/unemployment-rates/edit/{{ unemploymentRate.country }}/{{ unemploymentRate.year }}">{{ unemploymentRate.country }}</a></td>
                 <td>{{ unemploymentRate.year }}</td>
                 <td>{{ unemploymentRate.rate }}</td>
                 <td>{{ unemploymentRate.youthUnemployment }}</td>
                 <td>{{ unemploymentRate.maleUnemployment }}</td>
                 <td>{{ unemploymentRate.femaleUnemployment }}</td>
                 <td>
-                    <button class="btn btn-warning" ng-click="deleterate(unemploymentRate.year, unemploymentRate.province)">Borrar</button>
+                    <button class="btn btn-warning" ng-click="deleterate(unemploymentRate.country, unemploymentRate.year)">Borrar</button>
                 </td>
             </tr>
             <tr>

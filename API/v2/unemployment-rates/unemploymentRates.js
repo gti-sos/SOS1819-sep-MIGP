@@ -259,7 +259,7 @@ module.exports = function(app, BASE_PATH){
     // DELETE /unemployment-rates/Spain/2018
     path = BASE_PATH + "/unemployment-rates/:country/:year";
     app.delete(path, (req,res)=>{
-       var year = req.params.year;
+        var year = req.params.year;
         var country = req.params.country;
         var found = false;
         var updatedRates = [];
@@ -278,7 +278,6 @@ module.exports = function(app, BASE_PATH){
             else
                 unemploymentRates.remove();
                 updatedRates.filter((d) =>{
-                    delete d._id;
                     unemploymentRates.insert(d);
                 });
                 res.sendStatus(200);
