@@ -52,7 +52,7 @@
                 <td>{{ unemploymentRate.maleUnemployment }}</td>
                 <td>{{ unemploymentRate.femaleUnemployment }}</td>
                 <td>
-                    <button class="btn btn-warning" ng-click="deleterate(unemploymentRate.country, unemploymentRate.year)">Borrar</button>
+                    <button class="btn btn-warning" ng-click="deleterate(unemploymentRate.country, unemploymentRate.year)" value="delete">Borrar</button>
                 </td>
             </tr>
             <tr>
@@ -80,7 +80,7 @@
                     <input type="text" class="form-control" placeholder="new femaleUnemployment" value="new femaleUnemployment" ng-model="newRate.femaleUnemployment" />
                 </td>
                 <td>
-                    <button class="btn btn-primary" ng-click="addNewRate()">Añadir nuevo</button>
+                    <button class="btn btn-primary" ng-click="addNewRate()" value="add">Añadir nuevo</button>
                 </td>
             </tr>
            

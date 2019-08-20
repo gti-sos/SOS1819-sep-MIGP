@@ -1,4 +1,4 @@
-describe("Check if a new rate can be created", function() {
+describe("Check if a new rate can be created: ", function() {
     it("List should grow after the rate creation", function() {
         browser.get("http://localhost:8080/#!/ui/v1/unemployment-rates");
         element.all(by.repeater("unemploymentRate in unemploymentRates"))

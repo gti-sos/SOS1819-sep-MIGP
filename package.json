@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "newman run https://www.getpostman.com/collections/923f9a1524a420d817d8",
+    "pretest": "tests/runPhantom.sh",
+    "test": "newman run https://www.getpostman.com/collections/923f9a1524a420d817d8;  protractor tests/tests.js",
+    "posttest": "killall phantomjs",
     "start": "node index.js"
   },
   "repository": {
