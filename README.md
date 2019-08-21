@@ -9,3 +9,5 @@
 -  **APIs**:
     - [https://sos1819-sep-migp.herokuapp.com/api/v1/unemployment-rates/docs](https://sos1819-sep-migp.herokuapp.com/api/v1/unemployment-rates) (developed by [Manuel Iván Gálvez Pérez](https://github.com/mangalper1))
     
+- **Docker**
+    - docker run -p 8080:8080 -d mangalper1/sos1819-sep-migp
