@@ -1,7 +1,3 @@
 # Node-specific files
 node_modules
 npm-debug.log
-
-# Other IDE-specific folders
-nbproject
-.vscode
