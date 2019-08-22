@@ -5,6 +5,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
 var unemploymentRates;
 
 
+
 client.connect(err => {
   unemploymentRates = client.db("mangalper").collection("unemploymentRates");
   // perform actions on the collection object

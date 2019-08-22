@@ -1,16 +1,28 @@
  /*global angular*/
-angular.module("MiniPostmanApp",["ngRoute"]).config( function ($routeProvider){
+angular.module("App",["ngRoute"]).config( function ($routeProvider){
     $routeProvider
     .when("/ui/v1/unemployment-rates", {
         controller : "ListCtrl",
-        templateUrl: "list.html"
+        templateUrl: "/unemployment-rates/list.html"
     })
     .when("/ui/v1/unemployment-rates/edit/:country/:year", {
         controller : "EditCtrl",
-        templateUrl: "edit.html"
+        templateUrl: "/unemployment-rates/edit.html"
     })
     .when("/", {
         templateUrl: "principal.html"
+    })
+    .when("/integrations", {
+        templateUrl: "/integrations/integrations.html"
+    })
+    
+    
+    //Integraciones
+    
+    .when("/integrations/unemployment-rates", {
+        controller : "APICtrl",
+        templateUrl : "/integrations/views/myAPI.html"
     });
+    
 });
 console.log("MiniPostmanApp initialized!");
