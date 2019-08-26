@@ -22,7 +22,12 @@ angular.module("App",["ngRoute"]).config( function ($routeProvider){
     .when("/integrations/unemployment-rates", {
         controller : "APICtrl",
         templateUrl : "/integrations/views/myAPI.html"
+    })
+    .when("/integrations/public-general-expenses", {
+        controller : "ExpensesCtrl",
+        templateUrl : "/integrations/views/G11-expenses.html"
     });
+
     
 });
 console.log("MiniPostmanApp initialized!");
