@@ -26,6 +26,10 @@ angular.module("App",["ngRoute"]).config( function ($routeProvider){
     .when("/integrations/public-general-expenses", {
         controller : "ExpensesCtrl",
         templateUrl : "/integrations/views/G11-expenses.html"
+    })
+    .when("/integrations/life-expectancy-stats", {
+        controller : "LifeCtrl",
+        templateUrl : "/integrations/views/G12-life.html"
     });
 
     

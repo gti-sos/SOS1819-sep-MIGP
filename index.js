@@ -20,6 +20,14 @@ API.unemploymentRates(app, BASE_PATH);
 app.use("/", express.static(path.join(__dirname,"/public")));
 //app.use("/ui/v1/unemployment-rates", express.static(path.join(__dirname,"/public/unemployment-rates")));
 
+
+//PROXY G12
+var APIG12 = "https://sos1819-12.herokuapp.com/api/v1/life-expectancy-stats";
+    app.use("/proxyG12", function(req, res) {
+        console.log('piped: '+ APIG12);
+        req.pipe(request(APIG12)).pipe(res);
+    })
+
 var port = process.env.PORT || 3000;
 
 const MongoClient = require("mongodb").MongoClient;

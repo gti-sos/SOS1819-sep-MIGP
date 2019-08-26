@@ -1,8 +1,10 @@
+
 const MongoClient = require("mongodb").MongoClient;
 const uri = "mongodb+srv://test:test@mangalper1-o8j8b.mongodb.net/mangalper1?retryWrites=true";
 const client = new MongoClient(uri, { useNewUrlParser: true });
 
 var unemploymentRates;
+
 
 
 
@@ -38,7 +40,7 @@ module.exports = function(app, BASE_PATH){
         femaleUnemployment: 9
         },
         {
-        country: "UUEE",
+        country: "United States",
         year: 2018,
         rate: 3.9,
         youthUnemployment: 8.7,
@@ -46,7 +48,7 @@ module.exports = function(app, BASE_PATH){
         femaleUnemployment: 3.8
         },
         {
-        country: "UK",
+        country: "United Kingdom",
         year: 2018,
         rate: 4.0,
         youthUnemployment: 11.8,
@@ -78,7 +80,7 @@ module.exports = function(app, BASE_PATH){
         femaleUnemployment: 9
         },
         {
-        country: "UUEE",
+        country: "United States",
         year: 2017,
         rate: 4.1,
         youthUnemployment: 8.9,
@@ -86,7 +88,7 @@ module.exports = function(app, BASE_PATH){
         femaleUnemployment: 4.0
         },
         {
-        country: "UK",
+        country: "United Kingdom",
         year: 2017,
         rate: 4.4,
         youthUnemployment: 12.5,
@@ -118,7 +120,7 @@ module.exports = function(app, BASE_PATH){
         femaleUnemployment: 9.8
         },
         {
-        country: "UUEE",
+        country: "United States",
         year: 2016,
         rate: 4.7,
         youthUnemployment: 9.8,
@@ -126,7 +128,7 @@ module.exports = function(app, BASE_PATH){
         femaleUnemployment: 4.6
         },
         {
-        country: "UK",
+        country: "United Kingdom",
         year: 2016,
         rate: 4.8,
         youthUnemployment: 12.6,
@@ -137,6 +139,7 @@ module.exports = function(app, BASE_PATH){
         
   ];
 
+    
 
 
     

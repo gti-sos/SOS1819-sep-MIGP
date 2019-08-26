@@ -14,15 +14,15 @@ app.controller("ExpensesCtrl",
             $http.get(API2).then(function(response2) {
                 
                 var countries = response.data.map((c) => {
-                        if(c.year != 2016)
+                        if(c.year == 2018)
                             return c.country + " " + c.year;
                     });
                 var youthRates = response.data.map((c) => {       
-                        if(c.year != 2016)
+                        if(c.year == 2018)
                             return c.youthUnemployment;
                         });
-                var educationExpenses = [];
-                var i=0;
+                var eE = response2.data;
+                
                 
                
                Highcharts.chart('container', {
@@ -86,11 +86,11 @@ app.controller("ExpensesCtrl",
                     }
                 
                   }, {
-                    name: 'Temperature',
+                    name: 'Gasto en educación',
                     type: 'spline',
-                    data: [],
+                    data: [eE[1].educationExpense,eE[0].educationExpense,eE[3].educationExpense,eE[13].educationExpense,eE[2].educationExpense],
                     tooltip: {
-                      valueSuffix: '°C'
+                      valueSuffix: ''
                     }
                   }]
                 });
