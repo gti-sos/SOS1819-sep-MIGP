@@ -30,7 +30,17 @@ angular.module("App",["ngRoute"]).config( function ($routeProvider){
     .when("/integrations/life-expectancy-stats", {
         controller : "LifeCtrl",
         templateUrl : "/integrations/views/G12-life.html"
-    });
+    })
+    .when("/integrations/weather", {
+        controller : "WeatherCtrl",
+        templateUrl : "/integrations/views/weather-extern.html"
+    })
+    .when("/integrations/bikes", {
+        controller : "BikesCtrl",
+        templateUrl : "/integrations/views/bikes-extern.html"
+    })
+    ;
+
 
     
 });

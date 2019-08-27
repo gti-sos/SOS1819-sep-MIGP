@@ -27,6 +27,19 @@ var APIG12 = "https://sos1819-12.herokuapp.com/api/v1/life-expectancy-stats";
         console.log('piped: '+ APIG12);
         req.pipe(request(APIG12)).pipe(res);
     })
+    
+//PROXY EXTERNA 1 - Weather
+var APIExt1 = "https://www.metaweather.com/api/location/753692/";
+    app.use("/proxyExt1", function(req, res) {
+        console.log('piped: '+ APIExt1);
+        req.pipe(request(APIExt1)).pipe(res);
+    })
+    
+var APIExt2 = "http://api.citybik.es/v2/networks?fields=location";
+    app.use("/proxyExt2", function(req, res) {
+       console.log("piped: "+APIExt2);
+       req.pipe(request(APIExt2)).pipe(res);
+    });
 
 var port = process.env.PORT || 3000;
 
