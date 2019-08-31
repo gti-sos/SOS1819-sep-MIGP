@@ -312,7 +312,7 @@ module.exports = function(app, BASE_PATH){
         var country = req.params.country;
         var updatedData = req.body;
         
-        if(updatedData.year != year || updatedData.country != country)
+        if(updatedData.year != year || updatedData.country != country )
             res.sendStatus(400);
         else
             unemploymentRates.update({"country": country, "year": year}, updatedData);
