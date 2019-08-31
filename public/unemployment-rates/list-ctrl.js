@@ -93,20 +93,24 @@ app.controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
 
         }, function(error) {
             $scope.stateCode = error.status + ", " + error.statusText;
-            $scope.mensaje = "No se encuentra el recurso"
+            $scope.mensaje = "No se encuentra el recurso";
+            refresh();
         });
     };
 
     $scope.deleteAllData = function() {
 
         $http.delete($scope.url).then(function(response) {
-
             $scope.mensaje = "Datos borrados";
             $scope.stateCode = response.status + ", " + response.statusText;
+            console.log("Datos borrados");
+            refresh();
         }, function(error) {
             $scope.stateCode = error.status + ", " + error.statusText;
             $scope.mensaje = "La base de datos está vacía";
+            refresh();
         });
+        
     };
 
 
@@ -121,12 +125,13 @@ app.controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
             console.log("Búsqueda realizada " + JSON.stringify(response.data, null, 2));
             $scope.mensaje = "Búsqueda realizada de "+from+" a "+to;
             $scope.stateCode = response.status + ", " + response.statusText;
-        }), function(error) {
+        }, function(error) {
             $scope.stateCode = error.status + ", " + error.statusText;
             $scope.mensaje = "No se encuentran datos desde "+from+" a "+to;
-            };
 
+        });
     };
+
 
     $scope.buscarRecurso = function(year) {
         console.log("Buscando ... ");
@@ -145,7 +150,6 @@ app.controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
         
     };
     
-    
-
     refresh();
+    
 }]);

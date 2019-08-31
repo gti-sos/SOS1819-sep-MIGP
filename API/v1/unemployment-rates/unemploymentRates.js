@@ -181,21 +181,20 @@ module.exports = function(app, BASE_PATH){
         
         if(from && to) {
             unemploymentRates.find({ year: {$gte: from, $lte: to}}).skip(offset).limit(limit).toArray((err, unemploymentRatesArray)=>{
-                if(unemploymentRatesArray.length == 0)
+                if(unemploymentRatesArray.length == 0) {
+                    console.log("No se ha encon")
                     res.sendStatus(404);
-                else 
+                } else { 
                     res.send(unemploymentRatesArray.map((p)=>{
                         delete p._id;
                         return p;
                     }));
-                    
+                }    
+
             
         });
         } else {
             unemploymentRates.find({}).skip(offset).limit(limit).toArray((err, unemploymentRatesArray)=>{
-                if(unemploymentRatesArray.length == 0)
-                    res.sendStatus(404);
-                else 
                     res.send(unemploymentRatesArray.map((p)=>{
                         delete p._id;
                         return p;
@@ -269,7 +268,8 @@ module.exports = function(app, BASE_PATH){
     var i = 0;
     
         if (posted.country == null || posted.year == null ||posted.rate == null || posted.youthUnemployment == null || posted.maleUnemployment == null || posted.femaleUnemployment == null 
-            || req.body.country == "" || req.body.year == "" ||req.body.rate == "" || req.body.youthUnemployment == "" || req.body.maleUnemployment == "" || req.body.femaleUnemployment == "" ){
+            || req.body.country == "" || req.body.year == "" ||req.body.rate == "" || req.body.youthUnemployment == "" || req.body.maleUnemployment == "" || req.body.femaleUnemployment == "" 
+            || isNaN(posted.country) ||  !isNaN(posted.year) || !isNaN(posted.rate) || !isNaN(posted.youthUnemployment) || !isNaN(posted.maleUnemployment) || !isNaN(posted.femaleUnemployment)){
             res.sendStatus(400);
         }else{
             unemploymentRates.find({}).toArray((error,unemploymentRatesArray)=>{
@@ -345,7 +345,7 @@ module.exports = function(app, BASE_PATH){
         })
         
         
-        
+    
        
         
     });
