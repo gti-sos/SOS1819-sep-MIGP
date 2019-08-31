@@ -20,7 +20,7 @@ API.unemploymentRates(app, BASE_PATH);
 app.use("/", express.static(path.join(__dirname,"/public")));
 //app.use("/ui/v1/unemployment-rates", express.static(path.join(__dirname,"/public/unemployment-rates")));
 
-
+ 
 //PROXY G12
 var APIG12 = "https://sos1819-12.herokuapp.com/api/v1/life-expectancy-stats";
     app.use("/proxyG12", function(req, res) {
