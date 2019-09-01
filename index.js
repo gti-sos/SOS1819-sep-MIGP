@@ -41,7 +41,7 @@ var APIExt2 = "http://api.citybik.es/v2/networks?fields=location";
        req.pipe(request(APIExt2)).pipe(res);
     });
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 
 const MongoClient = require("mongodb").MongoClient;
 const uri = "mongodb+srv://test:test@mangalper1-o8j8b.mongodb.net/mangalper1?retryWrites=true";
