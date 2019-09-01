@@ -252,14 +252,7 @@ module.exports = function(app, BASE_PATH){
     // POST /unemployment-rates
     path = BASE_PATH + "/unemployment-rates";
     app.post(path, (req, res) => {
-    var newRate = {
-        "country": req.body.country,
-        "year": Number(req.body.year),
-        "rate": Number(req.body.rate),
-        "youthUnemployment": Number(req.body.youthUnemployment),
-        "maleUnemployment": Number(req.body.maleUnemployment),
-        "femaleUnemployment": Number(req.body.femaleUnemployment)
-    }
+    
     
     var posted = req.body;
 
@@ -267,15 +260,23 @@ module.exports = function(app, BASE_PATH){
     var coincide = false;
     var i = 0;
     
-        if (posted.country == null || posted.year == null ||posted.rate == null || posted.youthUnemployment == null || posted.maleUnemployment == null || posted.femaleUnemployment == null 
-            || req.body.country == "" || req.body.year == "" ||req.body.rate == "" || req.body.youthUnemployment == "" || req.body.maleUnemployment == "" || req.body.femaleUnemployment == "" 
-            || isNaN(posted.country) ||  !isNaN(posted.year) || !isNaN(posted.rate) || !isNaN(posted.youthUnemployment) || !isNaN(posted.maleUnemployment) || !isNaN(posted.femaleUnemployment)){
+    var newRate = {
+                    "country": req.body.country,
+                    "year": Number(req.body.year),
+                    "rate": Number(req.body.rate),
+                    "youthUnemployment": Number(req.body.youthUnemployment),
+                    "maleUnemployment": Number(req.body.maleUnemployment),
+                    "femaleUnemployment": Number(req.body.femaleUnemployment)
+                }
+    
+        if (posted.country == null || posted.year == null ||posted.rate == null || posted.youthUnemployment == null || posted.maleUnemployment == null || posted.femaleUnemployment == null ){
             res.sendStatus(400);
         }else{
             unemploymentRates.find({}).toArray((error,unemploymentRatesArray)=>{
-                for(i=0;i<unemploymentRatesArray.length;i++)
-                    if (unemploymentRatesArray[i].country==newRate.country && unemploymentRatesArray[i].year==newRate.year && unemploymentRatesArray[i].rate==newRate.rate && unemploymentRatesArray[i].youthUnemployment == newRate.youthUnemployment && unemploymentRatesArray[i].maleUnemployment==newRate.maleUnemployment && unemploymentRatesArray[i].femaleUnemployment==newRate.femaleUnemployment)
-                        coincide = true;
+            for(i=0;i<unemploymentRatesArray.length;i++)
+                if (unemploymentRatesArray[i].country==newRate.country && unemploymentRatesArray[i].year==newRate.year && unemploymentRatesArray[i].rate==newRate.rate && unemploymentRatesArray[i].youthUnemployment == newRate.youthUnemployment && unemploymentRatesArray[i].maleUnemployment==newRate.maleUnemployment && unemploymentRatesArray[i].femaleUnemployment==newRate.femaleUnemployment)
+                    coincide = true;
+            
             
             
             if(coincide == true) {
@@ -285,7 +286,9 @@ module.exports = function(app, BASE_PATH){
                 res.sendStatus(201);
             } 
             });
-        } 
+        }
+
+        
         });
         
     //POST a un recurso  

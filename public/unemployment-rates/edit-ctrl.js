@@ -24,12 +24,12 @@ angular
                 .put(API+"/"+country+"/"+year, $scope.unemploymentRate)
                 .then(function(response) {
                     console.log("PUT response: "+ response.status + " " + response.data);
-                    $scope.mensaje = "El recurso con id "+country+ " "+year+"ha sido actualizado con exito";
-                    $scope.stateCode = response.status + ", " + response.statusText;
+                    alert("El recurso con id ha sido actualizado con exito");
+                    $location.path("/ui/v1/unemployment-rates");
                 }, function(error) {
-                    $scope.mensaje = "Introduce correctamente los datos";
-                    $scope.stateCode = error.status + ", " + error.statusText;
-                }) 
-            $location.path("/ui/v1/unemployment-rates");
-        }
+                    alert("Introduce correctamente los datos");
+                    $location.path("/ui/v1/unemployment-rates");
+                });
+            
+        };
     }])
