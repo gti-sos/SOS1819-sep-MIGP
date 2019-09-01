@@ -13,4 +13,4 @@
     - [Unemployment Rates](https://sos1819-sep-migp.herokuapp.com/#!/ui/v1/unemployment-rates)
 
 - **Docker**
-    - docker run -p 8080:8080 -d mangalper1/sos1819-sept-migp
+    - docker run -p 8080:8080 -d mangalper1/sos1819-sep-migp
