@@ -10,13 +10,15 @@ app.controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
 
     $scope.mensaje = "Ninguna acción realizada";
     
+    $scope.pagina = 0;
+    
+    
     var API = $scope.url = "/api/v1/unemployment-rates";
 
     function refresh() {
-        $http.get(API+ "?offset=0&limit=10").then(function(response) {
+        $http.get(API+ "?offset="+$scope.pagina+"&limit=10").then(function(response) {
             console.log("Datos recibidos " + JSON.stringify(response.data, null, 2));
             $scope.unemploymentRates = response.data;
-            $scope.pagina = 0;
 
         });
     };
@@ -155,11 +157,13 @@ app.controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
     $scope.anterior = function() {
         console.log("Volviendo a la página anterior");
         if($scope.pagina<=0){
+            $scope.mensaje = "Ya está en la página 1";
             console.log("Ya está en la página 1");
         } else {
             $scope.pagina = $scope.pagina - 10;
             $http.get(API + "?offset="+$scope.pagina+"&limit=10").then(function(response) {
                 $scope.unemploymentRates = response.data;
+                $scope.mensaje = "Volviendo a la página anterior";
                 console.log("Volviendo a la página anterior");
             });
                 
@@ -174,8 +178,10 @@ app.controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
                 if(response.data.length == 0) {
                     $scope.pagina = $scope.pagina - 10;
                     console.log("La siguiente página se encuentra vacía");
+                    $scope.mensaje = "La siguiente página se encuentra vacía";
                 } else {
                     console.log("Avanzando a la siguiente página");
+                    $scope.mensaje = "Avanzando a la siguiente página";
                     $scope.unemploymentRates = response.data;
                 }
             });

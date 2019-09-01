@@ -28,7 +28,6 @@ angular
                     $location.path("/ui/v1/unemployment-rates");
                 }, function(error) {
                     alert("Introduce correctamente los datos");
-                    $location.path("/ui/v1/unemployment-rates");
                 });
             
         };
