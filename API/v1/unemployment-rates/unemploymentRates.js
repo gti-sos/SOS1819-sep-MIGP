@@ -263,8 +263,7 @@ module.exports = function(app, BASE_PATH){
    
     
         if (posted.country == null || typeof posted.year == null ||posted.rate == null || posted.youthUnemployment == null || posted.maleUnemployment == null || posted.femaleUnemployment == null 
-            || posted.country == "" || posted.year == "" || posted.rate == "" || posted.youthUnemployment == "" || posted.maleUnemployment == "" || posted.femaleUnemployment == ""
-            ||  isNaN(posted.country) || !isNaN(posted.year) || !isNaN(posted.rate) || !isNaN(posted.youthUnemployment) || !isNaN(posted.maleUnemployment) || !isNaN(posted.femaleUnemployment)){
+            || posted.country == "" || posted.year == "" || posted.rate == "" || posted.youthUnemployment == "" || posted.maleUnemployment == "" || posted.femaleUnemployment == ""){
                 res.sendStatus(400);
         }else{
             unemploymentRates.find({}).toArray((error,unemploymentRatesArray)=>{
