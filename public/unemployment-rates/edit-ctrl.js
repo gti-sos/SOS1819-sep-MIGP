@@ -19,7 +19,7 @@ angular
         });
         
         $scope.updaterate = function(country, year) {
-            console.log("Updating rate with country "+country+" and name "+name);
+            console.log("Updating rate with country "+country+" and year "+year);
             $http
                 .put(API+"/"+country+"/"+year, $scope.unemploymentRate)
                 .then(function(response) {

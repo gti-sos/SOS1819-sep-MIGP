@@ -311,8 +311,7 @@ module.exports = function(app, BASE_PATH){
         var updatedData = req.body;
         
         if(updatedData.year != year || updatedData.country != country 
-            || updatedData.rate == "" || updatedData.youthUnemployment == "" || updatedData.maleUnemployment == "" || updatedData.femaleUnemployment == "" 
-            || !isNaN(updatedData.rate) || !isNaN(updatedData.youthUnemployment) || !isNaN(updatedData.maleUnemployment) || !isNaN(updatedData.femaleUnemployment))
+            || updatedData.rate == "" || updatedData.youthUnemployment == "" || updatedData.maleUnemployment == "" || updatedData.femaleUnemployment == "" )
             res.sendStatus(400);
         else
             unemploymentRates.update({"country": country, "year": year}, updatedData);
