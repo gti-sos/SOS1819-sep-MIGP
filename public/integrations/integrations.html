@@ -3,58 +3,85 @@
         </h1>
 </center>
 
+<head>
+<style>
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+</head>
+
 <br>
 <br>
 
-<table class="table">
-    <thead>
-        <tr>
-            <td scope="row">API usada</td>
-            
-            <td scope="row">Fuente de la API</td>
-        </tr>
-    </thead>
-
-    <tbody>
-      <tr>
+    <table id="customers">
+        <thead>
+            <tr>
+                <td scope="row">API usada</td>
+                
+                <td scope="row">Fuente de la API</td>
+            </tr>
+        </thead>
     
-        <td scope="row"><a href="/#!/integrations/unemployment-rates">Mi api con HighCharts, GeoChart y C3</a></td>
-    
-        <td><a href="https://sos1819-sep-migp.herokuapp.com/api/v1/unemployment-rates">Fuente</a></td>
-    
-    
-      </tr>
-    
-      <tr>
-    
-        <td><a href="/#!/integrations/public-general-expenses">Integración con API Grupo 11 - HighCharts tipo Combinations</a></td>
-    
-        <td><a href="https://sos1819-11.herokuapp.com/api/v1/general-public-expenses">Fuente</a></td>
-    
-      </tr>
-    
-      <tr>
-    
-        <td><a href="/#!/integrations/life-expectancy-stats">Integración con API Grupo 12 - HighCharts tipo Area (proxy)</a></td>
-    
-        <td><a href="/proxyG12">Fuente</a></td>
-    
-      </tr>
-      
-      <tr>
-    
-        <td><a href="/#!/integrations/bikes">Integración con API Externa - GoogleChart tipo Bar (proxy)</a></td>
-    
-        <td><a href="/proxyExt2">Fuente</a></td>
-    
-      </tr>
-      
-       <tr>
-    
-        <td><a href="/#!/integrations/weather">API Externa - ZingChart tipo Line (proxy)</a></td>
-    
-        <td><a href="/proxyExt1">Fuente</a></td>
-    
-      </tr>
-    </tbody>
-</table>
+        <tbody>
+          <tr>
+        
+            <td scope="row"><a href="/#!/integrations/unemployment-rates">Mi api con HighCharts, GeoChart y C3</a></td>
+        
+            <td><a href="https://sos1819-sep-migp.herokuapp.com/api/v1/unemployment-rates">Fuente</a></td>
+        
+        
+          </tr>
+        
+          <tr>
+        
+            <td><a href="/#!/integrations/public-general-expenses">Integración con API Grupo 11 - HighCharts tipo Combinations</a></td>
+        
+            <td><a href="https://sos1819-11.herokuapp.com/api/v1/general-public-expenses">Fuente</a></td>
+        
+          </tr>
+        
+          <tr>
+        
+            <td><a href="/#!/integrations/life-expectancy-stats">Integración con API Grupo 12 - HighCharts tipo Area (proxy)</a></td>
+        
+            <td><a href="/proxyG12">Fuente</a></td>
+        
+          </tr>
+          
+          <tr>
+        
+            <td><a href="/#!/integrations/bikes">Integración con API Externa - GoogleChart tipo Bar (proxy)</a></td>
+        
+            <td><a href="/proxyExt2">Fuente</a></td>
+        
+          </tr>
+          
+           <tr>
+        
+            <td><a href="/#!/integrations/weather">API Externa - ZingChart tipo Line (proxy)</a></td>
+        
+            <td><a href="/proxyExt1">Fuente</a></td>
+        
+          </tr>
+        </tbody>
+    </table>
