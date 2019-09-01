@@ -39,7 +39,11 @@ angular.module("App",["ngRoute"]).config( function ($routeProvider){
         controller : "BikesCtrl",
         templateUrl : "/integrations/views/bikes-extern.html"
     })
-    ;
+    
+    //Vídeo
+    .when("/about", {
+        templateUrl: "/integrations/views/about.html"
+    });
 
 
     
