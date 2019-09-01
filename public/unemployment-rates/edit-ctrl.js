@@ -24,7 +24,7 @@ angular
                 .put(API+"/"+country+"/"+year, $scope.unemploymentRate)
                 .then(function(response) {
                     console.log("PUT response: "+ response.status + " " + response.data);
-                    alert("El recurso con id ha sido actualizado con exito");
+                    alert("El recurso ha sido actualizado con exito");
                     $location.path("/ui/v1/unemployment-rates");
                 }, function(error) {
                     alert("Introduce correctamente los datos");

@@ -260,6 +260,15 @@ module.exports = function(app, BASE_PATH){
     var coincide = false;
     var i = 0;
     
+    var newRate = {
+        "country": posted.country,
+        "year": Number.parseFloat(posted.year),
+        "rate": Number.parseFloat(posted.rate),
+        "youthUnemployment": Number.parseFloat(posted.youthUnemployment),
+        "maleUnemployment": Number.parseFloat(posted.maleUnemployment),
+        "femaleUnemployment": Number.parseFloat(posted.femaleUnemployment),
+    }
+    
    
     
         if (posted.country == null || typeof posted.year == null ||posted.rate == null || posted.youthUnemployment == null || posted.maleUnemployment == null || posted.femaleUnemployment == null 
@@ -277,7 +286,7 @@ module.exports = function(app, BASE_PATH){
             if(coincide == true) {
                 res.sendStatus(409);
             }else{ 
-                unemploymentRates.insert(posted);
+                unemploymentRates.insert(newRate);
                 res.sendStatus(201);
             } 
             });

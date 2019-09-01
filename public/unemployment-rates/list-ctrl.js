@@ -158,12 +158,14 @@ app.controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
         console.log("Volviendo a la página anterior");
         if($scope.pagina<=0){
             $scope.mensaje = "Ya está en la página 1";
+            $scope.stateCode = "";
             console.log("Ya está en la página 1");
         } else {
             $scope.pagina = $scope.pagina - 10;
             $http.get(API + "?offset="+$scope.pagina+"&limit=10").then(function(response) {
                 $scope.unemploymentRates = response.data;
                 $scope.mensaje = "Volviendo a la página anterior";
+                $scope.stateCode = "";
                 console.log("Volviendo a la página anterior");
             });
                 
@@ -177,10 +179,12 @@ app.controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
             $http.get(API + "?offset="+$scope.pagina+"&limit=10").then(function(response) {
                 if(response.data.length == 0) {
                     $scope.pagina = $scope.pagina - 10;
+                    $scope.stateCode = "";
                     console.log("La siguiente página se encuentra vacía");
                     $scope.mensaje = "La siguiente página se encuentra vacía";
                 } else {
                     console.log("Avanzando a la siguiente página");
+                    $scope.stateCode = "";
                     $scope.mensaje = "Avanzando a la siguiente página";
                     $scope.unemploymentRates = response.data;
                 }
