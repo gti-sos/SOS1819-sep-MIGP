@@ -1,6 +1,9 @@
 describe("Check if a rate can be removed: ", function() {
     it("List should decrease after the rate removing", function() {
         browser.get("http://localhost:8080/#!/ui/v1/unemployment-rates");
+        element(by.css('[value=siguiente]')).click();
+        element(by.css('[value=siguiente]')).click();
+        element(by.css('[value=siguiente]')).click();
         element.all(by.repeater("unemploymentRate in unemploymentRates"))
             .then(function(initialUnemploymentRates) {
                 

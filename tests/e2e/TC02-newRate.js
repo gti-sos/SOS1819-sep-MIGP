@@ -1,6 +1,9 @@
 describe("Check if a new rate can be created: ", function() {
     it("List should grow after the rate creation", function() {
         browser.get("http://localhost:8080/#!/ui/v1/unemployment-rates");
+        element(by.css('[value=siguiente]')).click();
+        element(by.css('[value=siguiente]')).click();
+        element(by.css('[value=siguiente]')).click();
         element.all(by.repeater("unemploymentRate in unemploymentRates"))
             .then(function(initialUnemploymentRates) {
                 element(by.model('newRate.country')).sendKeys("USA");
