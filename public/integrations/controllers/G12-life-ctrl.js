@@ -44,8 +44,12 @@ app.controller("LifeCtrl",
                             lifes[15].expectancy_man, lifes[14].expectancy_man]
                   }, {
                     name: 'Porcentaje desempleo',
-                    data: [rates[5].maleUnemployment, rates[9].maleUnemployment, rates[7].maleUnemployment, rates[10].maleUnemployment,
-                            rates[11].maleUnemployment, rates[13].maleUnemployment]
+                    data: [rates.filter((x) => x.country=="Spain" && x.year==2017)[0].maleUnemployment, 
+                            rates.filter((x) => x.country=="Germany" && x.year==2017)[0].maleUnemployment, 
+                            rates.filter((x) => x.country=="United States" && x.year==2017)[0].maleUnemployment, 
+                            rates.filter((x) => x.country=="Spain" && x.year==2016)[0].maleUnemployment,
+                            rates.filter((x) => x.country=="Germany" && x.year==2016)[0].maleUnemployment, 
+                            rates.filter((x) => x.country=="United States" && x.year==2016)[0].maleUnemployment]
                   }]
                 });
                 

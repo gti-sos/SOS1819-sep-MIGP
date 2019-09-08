@@ -13,14 +13,13 @@ app.controller("ExpensesCtrl",
         $http.get(API).then(function(response) {
             $http.get(API2).then(function(response2) {
                 
-                var countries = response.data.map((c) => {
-                        if(c.year == 2018)
-                            return c.country + " " + c.year;
-                    });
-                var youthRates = response.data.map((c) => {       
-                        if(c.year == 2018)
-                            return c.youthUnemployment;
-                        });
+                var uRates = response.data;
+                var countries =  ["Spain", "Germany" , "France", "United States", "United Kingdom"];
+                var youthRates = [ uRates.filter((x) => x.country=="Spain" && x.year==2018)[0].youthUnemployment, 
+                                    uRates.filter((x) => x.country=="Germany" && x.year==2018)[0].youthUnemployment, 
+                                    uRates.filter((x) => x.country=="France" && x.year==2018)[0].youthUnemployment, 
+                                    uRates.filter((x) => x.country=="United States" && x.year==2018)[0].youthUnemployment, 
+                                    uRates.filter((x) => x.country=="United Kingdom" && x.year==2018)[0].youthUnemployment];
                 var eE = response2.data;
                 
                 

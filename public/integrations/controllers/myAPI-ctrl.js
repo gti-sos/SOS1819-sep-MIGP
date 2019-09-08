@@ -11,7 +11,37 @@ app.controller("APICtrl",
         $http.get(API).then(function(response) {
             
             var rates = response.data;
-           
+            var paises = [];
+            rates.filter((c) => {
+                   if((c.year == 2018 || c.year == 2017 || c.year == 2016) && !paises.includes(c.country)){
+                       paises.push(c.country);
+                   } 
+                });
+            var year2016 = [];
+            var year2017 = [];
+            var year2018 = [];
+            paises.filter((c) => {
+                if(rates.filter(x => x.country == c && x.year==2016)[0] == undefined){
+                    year2016.push("");
+                } else {
+                    year2016.push(rates.filter(y => y.country == c && y.year==2016)[0].femaleUnemployment);
+                }
+                if(rates.filter(x => x.country == c && x.year==2017)[0] == undefined){
+                    year2017.push("");
+                } else {
+                    year2017.push(rates.filter(y => y.country == c && y.year==2017)[0].femaleUnemployment);
+                }
+                if(rates.filter(x => x.country == c && x.year==2018)[0] == undefined){
+                    year2018.push();
+                } else {
+                    year2018.push(rates.filter(y => y.country == c && y.year==2018)[0].femaleUnemployment);
+                }
+                
+            })
+            console.log(rates);
+            console.log(year2016);
+            console.log(year2017);
+            console.log(year2018);
            //-------------------------------HIGHCHARTS--------------------------------------------
            Highcharts.chart('container', {
               chart: {
@@ -21,7 +51,8 @@ app.controller("APICtrl",
                 text: 'Desempleo femenino'
               },
               xAxis: {
-                categories: ['Spain', 'Germany', 'France', 'United States', 'United Kingdom'],
+                  
+                categories: paises,
                 title: {
                   text: null
                 }
@@ -62,25 +93,13 @@ app.controller("APICtrl",
               },
               series: [{
                 name: 'Year 2016',
-                data: [rates.filter(c => c.year == 2016)[0].femaleUnemployment,
-                       rates.filter(c => c.year == 2016)[1].femaleUnemployment,
-                       rates.filter(c => c.year == 2016)[2].femaleUnemployment, 
-                       rates.filter(c => c.year == 2016)[3].femaleUnemployment, 
-                       rates.filter(c => c.year == 2016)[4].femaleUnemployment]
+                data: year2016
               }, {
                 name: 'Year 2017',
-                data: [rates.filter(c => c.year == 2017)[0].femaleUnemployment,
-                       rates.filter(c => c.year == 2017)[1].femaleUnemployment,
-                       rates.filter(c => c.year == 2017)[2].femaleUnemployment, 
-                       rates.filter(c => c.year == 2017)[3].femaleUnemployment, 
-                       rates.filter(c => c.year == 2017)[4].femaleUnemployment]
+                data: year2017
               }, {
                 name: 'Year 2018',
-                data: [rates.filter(c => c.year == 2018)[0].femaleUnemployment,
-                       rates.filter(c => c.year == 2018)[1].femaleUnemployment,
-                       rates.filter(c => c.year == 2018)[2].femaleUnemployment, 
-                       rates.filter(c => c.year == 2018)[3].femaleUnemployment, 
-                       rates.filter(c => c.year == 2018)[4].femaleUnemployment]
+                data: year2018
               }]
             });
 
@@ -97,14 +116,14 @@ app.controller("APICtrl",
               google.charts.setOnLoadCallback(drawRegionsMap);
         
               function drawRegionsMap() {
-                var data = google.visualization.arrayToDataTable([
-                  ['País', 'Porcentaje de paro'],
-                  [rates.filter(c => c.country == "Spain" && c.year == "2018")[0].country, rates.filter(c => c.country == "Spain" && c.year == "2018")[0].rate],
-                  [rates.filter(c => c.country == "Germany" && c.year == "2018")[0].country, rates.filter(c => c.country == "Germany" && c.year == "2018")[0].rate],
-                  [rates.filter(c => c.country == "France" && c.year == "2018")[0].country, rates.filter(c => c.country == "France" && c.year == "2018")[0].rate],
-                  [rates.filter(c => c.country == "United States" && c.year == "2018")[0].country, rates.filter(c => c.country == "United States" && c.year == "2018")[0].rate],
-                  [rates.filter(c => c.country == "United Kingdom" && c.year == "2018")[0].country, rates.filter(c => c.country == "United Kingdom" && c.year == "2018")[0].rate]
-                ]);
+                  
+                var array = [['País', 'Porcentaje de paro']];  
+                var datos = rates.filter((c) => {
+                   if(c.year==2018) {
+                       return array.push([c.country, c.rate]);
+                   } 
+                });
+                var data = google.visualization.arrayToDataTable(array);
         
                 var options = {};
         
@@ -115,16 +134,32 @@ app.controller("APICtrl",
               
               //--------------------------------C3.js--------------------------------------------
               
+              var c3datos = [];
+              paises.filter((c) => {
+                  
+                  var ar = [c];
+                  if(rates.filter(x => x.country == c && x.year==2016)[0] == undefined){
+                      ar.push("");
+                    } else {
+                        ar.push(rates.filter(y => y.country == c && y.year==2016)[0].femaleUnemployment);
+                    }
+                    if(rates.filter(x => x.country == c && x.year==2017)[0] == undefined){
+                        ar.push("");
+                    } else {
+                        ar.push(rates.filter(y => y.country == c && y.year==2017)[0].femaleUnemployment);
+                    }
+                    if(rates.filter(x => x.country == c && x.year==2018)[0] == undefined){
+                        ar.push();
+                    } else {
+                        ar.push(rates.filter(y => y.country == c && y.year==2018)[0].femaleUnemployment);
+                    }
+                    c3datos.push(ar);
+              });
+              
               var chart = c3.generate({
                     bindto: '#chart',
                     data: {
-                      columns: [
-                        ['Spain', rates.filter(c => c.year==2016 && c.country=="Spain")[0].maleUnemployment, rates.filter(c => c.year==2017 && c.country=="Spain")[0].maleUnemployment, rates.filter(c => c.year==2018 && c.country=="Spain")[0].maleUnemployment],
-                        ['Germany', rates.filter(c => c.year==2016 && c.country=="Germany")[0].maleUnemployment, rates.filter(c => c.year==2017 && c.country=="Germany")[0].maleUnemployment, rates.filter(c => c.year==2018 && c.country=="Germany")[0].maleUnemployment],
-                        ['France', rates.filter(c => c.year==2016 && c.country=="France")[0].maleUnemployment, rates.filter(c => c.year==2017 && c.country=="France")[0].maleUnemployment, rates.filter(c => c.year==2018 && c.country=="France")[0].maleUnemployment],
-                        ['United States', rates.filter(c => c.year==2016 && c.country=="France")[0].maleUnemployment, rates.filter(c => c.year==2017 && c.country=="United States")[0].maleUnemployment, rates.filter(c => c.year==2018 && c.country=="United States")[0].maleUnemployment],
-                        ['United Kingdom', rates.filter(c => c.year==2016 && c.country=="United Kingdom")[0].maleUnemployment, rates.filter(c => c.year==2017 && c.country=="United Kingdom")[0].maleUnemployment, rates.filter(c => c.year==2018 && c.country=="United Kingdom")[0].maleUnemployment]    
-                      ]
+                      columns: c3datos
                     }
                 });
         });

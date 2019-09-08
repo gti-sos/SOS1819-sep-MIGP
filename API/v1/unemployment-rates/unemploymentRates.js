@@ -278,7 +278,7 @@ module.exports = function(app, BASE_PATH){
         }else{
             unemploymentRates.find({}).toArray((error,unemploymentRatesArray)=>{
             for(i=0;i<unemploymentRatesArray.length;i++)
-                if (unemploymentRatesArray[i].country==posted.country && unemploymentRatesArray[i].year==posted.year && unemploymentRatesArray[i].rate==posted.rate && unemploymentRatesArray[i].youthUnemployment == posted.youthUnemployment && unemploymentRatesArray[i].maleUnemployment==posted.maleUnemployment && unemploymentRatesArray[i].femaleUnemployment==posted.femaleUnemployment)
+                if (unemploymentRatesArray[i].country==posted.country && unemploymentRatesArray[i].year==posted.year)
                     coincide = true;
             
             
